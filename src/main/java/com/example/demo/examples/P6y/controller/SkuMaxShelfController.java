@@ -9,6 +9,7 @@ import com.example.demo.examples.P6y.domain.SkuMaxShelf;
 import com.example.demo.examples.P6y.domain.SkuMaxShelfQuery;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class SkuMaxShelfController {
 
     @Autowired
+    @Lazy
     private SkuMaxShelfMapper skuMaxShelfMapper;
 
     @RequestMapping("/queryForList")
