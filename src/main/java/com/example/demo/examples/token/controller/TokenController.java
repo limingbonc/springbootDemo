@@ -1,10 +1,12 @@
 package com.example.demo.examples.token.controller;
 
+import com.example.demo.domain.common.ResponseResult;
 import com.example.demo.examples.token.domain.UserData;
 import com.example.demo.utils.JwtTokenUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -14,20 +16,22 @@ import org.springframework.web.bind.annotation.RestController;
  * @hope: The newly created file will not have a bug
  */
 @RestController
+@RequestMapping("/api/auth")
 @Slf4j
 public class TokenController {
 
 
     // 模拟登录接口
-    @GetMapping("/testLogin")
-    public  String testLogin(String userName,String passWord){
+    @PostMapping ("/login")
+    @ResponseBody
+    public ResponseResult testLogin(String userName, String passWord) {
         String token = null;
         // 默认账号密码校验通过
         if(true){
-            token = JwtTokenUtils.getJwtToken("1", "liming522");
+            token = JwtTokenUtils.getJwtToken(userName, passWord);
         }
-        UserData.addUserInfo("1",userName);
-        return token;
+        UserData.addUserInfo("1",userName,passWord);
+        return new ResponseResult(200,  token, "登录成功");
     }
 
     @PostMapping("/testOtherPath")

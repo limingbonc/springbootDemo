@@ -14,11 +14,11 @@ import java.util.Map;
 public class UserData {
     public static Map<String,User> userData = new HashMap<String, User>();
 
-    public static void addUserInfo(String userId,String userName){
+    public static void addUserInfo(String userId,String userName,String password){
         User user = new User();
         user.setUserId(userId);
         user.setUserName(userName);
-        user.setPassword("password");
+        user.setPassword(password);
         userData.put(userId,user);
     }
 

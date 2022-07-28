@@ -1,6 +1,8 @@
 package com.example.demo.examples.token.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author: liming522
@@ -9,6 +11,8 @@ import lombok.Data;
  * @hope: The newly created file will not have a bug
  */
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
     private String userName;
     private String userId;

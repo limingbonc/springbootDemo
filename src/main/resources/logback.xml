@@ -1,6 +1,8 @@
 <configuration debug="true" scan="true" scanPeriod="30 seconds">
 
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <!---->
+<!--    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">-->
+    <appender name="STDOUT" class="pers.liuchengyin.logbackadvice.LcyConsoleAppender">
         <encoder>
             <pattern>[TRACEID:%X{traceId}] %d{yyyy-mm-dd HH:mm:ss.SSS} -[%-5level]-%thread %logger{60} -%msg%xEx%n</pattern>
         </encoder>
