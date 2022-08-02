@@ -40,4 +40,10 @@ public class TokenController {
 
         return "跳转到了其他请求";
     }
+
+    @PostMapping("/")
+    public ResponseResult test(String  token){
+       return new ResponseResult<>(200,JwtTokenUtils.getAuthentication(token).getPrincipal(),"success");
+
+    }
 }

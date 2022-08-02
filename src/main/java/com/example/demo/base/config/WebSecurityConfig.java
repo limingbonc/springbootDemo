@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.filter.CorsFilter;
 
 /**
  * @author: liming522
@@ -30,13 +31,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtTokenUtils jwtTokenUtils;
+    private final CorsFilter corsFilter;
 
-    public WebSecurityConfig(JwtAccessDeniedHandler jwtAccessDeniedHandler, JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint, JwtTokenUtils jwtTokenUtils) {
+    public WebSecurityConfig(JwtAccessDeniedHandler jwtAccessDeniedHandler, JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint,
+                             JwtTokenUtils jwtTokenUtils,CorsFilter corsFilter) {
 
         this.jwtAccessDeniedHandler = jwtAccessDeniedHandler;
         this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
         this.jwtTokenUtils = jwtTokenUtils;
-
+        this.corsFilter = corsFilter;
     }
 
     @Override
@@ -45,6 +48,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity
                 // 禁用 CSRF
                 .csrf().disable()
+                .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
 
                 // 授权异常
                 .exceptionHandling()
@@ -90,8 +94,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 放行OPTIONS请求
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
-                //允许匿名及登录用户访问
-                // 所有controller的起始字符串都是 /api/auth/开头
+                //允许匿名及登录用户访问的路径,其余没登录要拦截的需要使用其他路径
                 .antMatchers("/api/auth/**", "/error/**").permitAll()
                 // 所有请求都需要认证
                 .anyRequest().authenticated();
@@ -102,7 +105,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // 添加JWT filter
         httpSecurity.apply(new TokenConfigurer(jwtTokenUtils));
     }
-
 
     /**
      * 自定义JWT filter
@@ -121,6 +123,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             http.addFilterBefore(customFilter, UsernamePasswordAuthenticationFilter.class);
         }
     }
-
 }
 

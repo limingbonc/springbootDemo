@@ -1,6 +1,7 @@
 package com.example.demo.domain.common;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author: liming522
@@ -9,6 +10,7 @@ import lombok.Data;
  * @hope: The newly created file will not have a bug
  */
 @Data
+@NoArgsConstructor
 public class ResponseResult<T> {
 
     private Integer code;

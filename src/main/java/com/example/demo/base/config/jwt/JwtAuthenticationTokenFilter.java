@@ -43,7 +43,7 @@ public class JwtAuthenticationTokenFilter  extends OncePerRequestFilter {
             token = token.substring(jwtTokenUtils.subJectStr.length());
         }
 
-        if (StringUtils.hasText(token) && jwtTokenUtils.validateToken(token)) {
+        if (StringUtils.hasText(token) && JwtTokenUtils.validateToken(token)) {
             Jws<Claims> decodedJWT = JwtTokenUtils.decode(token);
             // 2.取出JWT字符串载荷中的随机token，从Redis中获取用户信息
             Map<String,Object> body_AUTHORITIES_KEY =  (Map<String,Object>)decodedJWT.getBody().get(jwtTokenUtils.AUTHORITIES_KEY);
@@ -51,13 +51,16 @@ public class JwtAuthenticationTokenFilter  extends OncePerRequestFilter {
             String userId = (String)body_AUTHORITIES_KEY.get("userId");
             String password = (String)body_AUTHORITIES_KEY.get("passWord");
             log.info("获取到的用户信息为 userName:{},userId:{},passWord:{}",userName,userId,password);
-            Authentication authentication = jwtTokenUtils.getAuthentication(token);
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            log.debug("set Authentication to security context for '{}', uri: {}", authentication.getName(), requestRri);
-        } else {
+            Authentication authentication = JwtTokenUtils.getAuthentication(token);
+            if(authentication!=null){
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+                log.debug("set Authentication to security context for '{}', uri: {}", authentication.getName(), requestRri);
+            }
+         } else {
+            // token检验失败也要放心，有可能是登录请求，交给spring security来处理
             log.debug("no valid JWT token found, uri: {}", requestRri);
-        }
-        filterChain.doFilter(httpServletRequest, httpServletResponse);
+         }
+         filterChain.doFilter(httpServletRequest, httpServletResponse);
     }
 }
 

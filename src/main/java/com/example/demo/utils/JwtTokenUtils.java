@@ -73,7 +73,7 @@ public class JwtTokenUtils {
         return claimsJws;
     }
 
-    public Authentication getAuthentication(String jwtToken) {
+    public static Authentication getAuthentication(String jwtToken) {
         // 1.解析jwtToken
         Jws<Claims> decodedJWT = decode(jwtToken);
 

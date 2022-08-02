@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.dao.mapper.CustomerMapper">
+
+    <resultMap id="BaseResultMapper" type="com.example.demo.examples.mybatisEncrypt.domain.Customer">
+        <id column="id" property="id" javaType="INTEGER"/>
+        <result column="phone" property="phone" />
+        <result column="address" property="address" />
+    </resultMap>
+
+    <insert id="insert" parameterType="com.example.demo.examples.mybatisEncrypt.domain.Customer">
+        insert into customer(phone,address) values (#{phone},#{address})
+    </insert>
+
+    <insert id="addCustomer">
+        insert into customer(phone,address) values (#{phone},#{address})
+    </insert>
+
+    <select id="selectOne" resultMap="BaseResultMapper">
+        select * from customer where id = #{id}
+    </select>
+
+</mapper>

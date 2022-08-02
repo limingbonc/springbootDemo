@@ -18,7 +18,15 @@ spring:
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#指定mybatis加解密处理类
+  type-handlers-package: com.example.demo.examples.mybatisEncrypt.handler
+  mapper-locations: mappers/**.xml
 
 logging:
   level:
     com.baomidou.mybatisplus.samples: debug
+
+
+
+uploadFile:
+  path: /upload/

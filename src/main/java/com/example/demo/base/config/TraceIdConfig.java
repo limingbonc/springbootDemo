@@ -1,7 +1,6 @@
 package com.example.demo.base.config;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.example.demo.domain.common.Constants;
 import com.example.demo.utils.TraceIdUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -12,10 +11,6 @@ import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.MDC;
 import org.springframework.stereotype.Component;
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import java.util.Arrays;
 
 /**
