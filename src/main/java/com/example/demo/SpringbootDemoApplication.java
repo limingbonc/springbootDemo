@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import com.example.demo.base.config.jwt.JwtAuthenticationTokenFilter;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -13,8 +14,10 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @EnableScheduling
+@MapperScan("com.example.demo.dao.mapper")
 @ComponentScan(basePackages = {"com.example.demo.*"})
 @EnableAspectJAutoProxy(proxyTargetClass = true)
+
 public class SpringbootDemoApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {

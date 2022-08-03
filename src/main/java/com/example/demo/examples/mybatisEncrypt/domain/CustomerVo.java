@@ -5,12 +5,12 @@ import lombok.Data;
 /**
  * @author: liming522
  * @description:
- * @date: 2022/8/2 3:27 PM
+ * @date: 2022/8/3 3:40 PM
  * @hope: The newly created file will not have a bug
  */
 @Data
-public class Customer {
+public class CustomerVo {
     private Integer id;
-    private Encrypt phone;
+    private String phone;
     private String address;
 }

@@ -17,4 +17,6 @@ import org.apache.ibatis.annotations.Param;
 public interface CustomerMapper extends BaseMapper<Customer> {
 
     void addCustomer(@Param("phone") Encrypt phone,@Param("address") String address);
+
+    Customer selectByPhone(@Param("phone") Encrypt phone);
 }

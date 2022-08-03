@@ -17,8 +17,8 @@
         insert into customer(phone,address) values (#{phone},#{address})
     </insert>
 
-    <select id="selectOne" resultMap="BaseResultMapper">
-        select * from customer where id = #{id}
+    <select id="selectByPhone" resultMap="BaseResultMapper">
+        select * from customer where phone = #{phone}
     </select>
 
 </mapper>

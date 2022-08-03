@@ -1,9 +1,9 @@
 package com.example.demo.examples.mybatisEncrypt;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.demo.dao.mapper.CustomerMapper;
 import com.example.demo.domain.common.ResponseResult;
 import com.example.demo.examples.mybatisEncrypt.domain.Customer;
+import com.example.demo.examples.mybatisEncrypt.domain.CustomerVo;
 import com.example.demo.examples.mybatisEncrypt.domain.Encrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,20 +24,15 @@ public class EncryptController {
     // 测试加密
     @PostMapping("/add")
     @ResponseBody
-    public ResponseResult insertEncrypt(@RequestBody  Customer customer) {
-        customerMapper.addCustomer(new Encrypt(customer.getPhone()),customer.getAddress());
+    public ResponseResult insertEncrypt(@RequestBody CustomerVo customerVo) {
+        customerMapper.addCustomer(new Encrypt(customerVo.getPhone()),customerVo.getAddress());
         return new ResponseResult(200, "success","success");
     }
 
     // 测试解密
     @GetMapping("/select")
     @ResponseBody
-    public ResponseResult selectEncrypt(Integer id) {
-        ResponseResult responseResult = new ResponseResult();
-        QueryWrapper queryWrapper = new QueryWrapper();
-        queryWrapper.eq("id", id);
-        Customer customer = customerMapper.selectOne(queryWrapper);
-        responseResult.setData(customer);
-        return responseResult;
+    public ResponseResult selectEncrypt(String phone) {
+        return new ResponseResult(200, customerMapper.selectByPhone(new Encrypt(phone)),"success");
     }
 }
